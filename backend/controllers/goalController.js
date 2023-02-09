@@ -77,6 +77,12 @@ const deleteGoal = asyncHandler(async (req, res) => {
 	}
 
 	await Goal.remove();
+	// Goal.deleteOne({ _id: req.params.id }, function (err, result) {
+	// 	if (err) {
+	// 		throw new Error('can not be deleted')
+	// 	} else {
+	// 		res.status(200).json({ result:result  });
+	// 	}
 	res.status(200).json({ id: req.params.id });
 });
 
