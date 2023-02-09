@@ -20,19 +20,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// serve frontend
-
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static(path.join(__dirname, '../frontend/build')));
-
-	app.get('*', (req, res) =>
-		res.sendFile(
-			path.resolve(__dirname, '../', 'frontend', 'build', 'index.html')
-		)
-	);
-} else {
-	app.get('/', (req, res) => res.send('please set to production...'));
-}
+app.get('/healthcheck', (req, res) => {
+	res.status(200).json({
+		status: 'healthy',
+	});
+});
 
 app.use('/api/goals', goalRoutes);
 app.use('/api/users', userRoutes);
